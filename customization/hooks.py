@@ -59,7 +59,11 @@ app_license = "MIT"
 #	"methods": "customization.utils.jinja_methods",
 #	"filters": "customization.utils.jinja_filters"
 # }
-
+jinja = {
+    "methods":[
+        "customization.customization.print"
+    ]
+}
 # Installation
 # ------------
 
