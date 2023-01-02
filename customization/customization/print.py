@@ -36,7 +36,8 @@ def create_items(items, print_settings):
                     "qty": '&nbsp;',
                     "price": '&nbsp;',
                     "amount": itm.get_formatted("pos_amount"),
-                    "top_sr": True
+                    "top_sr": True,
+                    "style": ""
                 } or "" 
                 
                 position_group_list.append(row)
@@ -54,18 +55,28 @@ def create_items(items, print_settings):
                         if print_settings.print_uom_after_quantity:
                             qty =  qty + ' ' +  _(itm.uom) 
                             
+
+                        if doc_pos_group.type == "Grouped" and doc_item.hide_in_pos_group == 0:
                         
-                        row = { 
-                            "sr": str(sr) + '.' + str(sr_sub),
-                            "description": '<b>' + _(doc_item.item_name) + '</b><br>' + _(doc_item.description),
-                            "uom": _(doc_item.uom) if not print_settings.print_uom_after_quantity else '&nbsp;',
-                            "qty": qty,
-                            "price": doc_item.get_formatted("rate"),
-                            "amount": '&nbsp;',
-                            "top_sr": False
-                        } or "" 
-                        
-                        if not doc_item.hide_in_pos_group:
+                            l = len(position_group_list)-1
+                            
+                            position_group_list[l]['description'] += ("<br><i>" + _(doc_item.item_name) + '</i><br>' )# + _(doc_item.description))
+
+                            print(position_group_list[l]['description'])
+                            
+
+                        elif doc_pos_group.type == "Single" or doc_pos_group.type == None:
+                            row = { 
+                                "sr": str(sr) + '.' + str(sr_sub),
+                                "description": '<b>' + _(doc_item.item_name) + '</b><br>' + _(doc_item.description),
+                                "uom": _(doc_item.uom) if not print_settings.print_uom_after_quantity else '&nbsp;',
+                                "qty": qty,
+                                "price": doc_item.get_formatted("rate"),
+                                "amount": '&nbsp;',
+                                "top_sr": False,
+                                "style": "style='padding-top:0px!important;'"
+                            } or "" 
+                            
                             position_group_list.append(row)
                         #else:
                             
