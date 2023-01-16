@@ -1,0 +1,5 @@
+{
+    "css/custom_printstyle.css": [
+        "public/scss/print_style.scss"
+    ]
+}
